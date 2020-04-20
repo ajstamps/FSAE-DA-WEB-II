@@ -1,7 +1,7 @@
 import React from 'react';
 import CarImg from "../assets/b.jpg";
 
-export default function ElectricalPage(){
+export default function AboutPage(){
     return  (<div class="ui segment">
                 <div class="ui huge header centered">About the Team</div>
                 <img class="ui centered big image" src={CarImg}/>
