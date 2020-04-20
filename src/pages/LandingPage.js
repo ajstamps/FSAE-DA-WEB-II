@@ -12,6 +12,7 @@ import VehicleDynamicsPage from "./VehicleDynamicsPage";
 import ControlsPage from "./ControlsPage";
 import EnginePage from "./EnginePage";
 import ErrorPage from "./ErrorPage";
+import AboutPage from "./AboutPage";
 import { useCookies } from 'react-cookie';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -29,7 +30,6 @@ export default class LandingPage extends Component{
             {this.DisplayedPage()}
           </Grid.Column>
         </Grid>
-        {this.AboutDialog()}
       </div>
     );
   }
@@ -68,21 +68,21 @@ export default class LandingPage extends Component{
       </Menu>
     );
   }
-  AboutDialog(){
-      return (
-        <Dialog
-            isShown={this.state.isShown}
-            onCloseComplete={() => this.setState({ isShown: false })}
-            hasFooter={false}
-            hasHeader={false}
-            >
-            <Image centered src={FsaeIcon}/>
-            <Header textAlign="center" size="huge">FSAE Data Acquisition Software</Header>
-            <Header textAlign="center" size="small">Last updated Thursday, Feburary 27, 2020</Header>
+  // AboutDialog(){
+  //     return (
+  //       <Dialog
+  //           isShown={this.state.isShown}
+  //           onCloseComplete={() => this.setState({ isShown: false })}
+  //           hasFooter={false}
+  //           hasHeader={false}
+  //           >
+  //           <Image centered src={FsaeIcon}/>
+  //           <Header textAlign="center" size="huge">FSAE Data Acquisition Software</Header>
+  //           <Header textAlign="center" size="small">Last updated Thursday, Feburary 27, 2020</Header>
 
-        </Dialog>
-      );
-  }
+  //       </Dialog>
+  //     );
+  // }
   DisplayedPage(){
     return (
       <Router>
@@ -96,6 +96,7 @@ export default class LandingPage extends Component{
           <Route exact path="/engine"           component={EnginePage} />
           <Route exact path="/vehicle dynamics" component={VehicleDynamicsPage} />
           <Route exact path="/controls"         component={ControlsPage} />
+          <Route exact path="/about"            component={AboutPage} />
           <Route component={ErrorPage} />
         </Switch>
       </Router>
@@ -137,9 +138,9 @@ export default class LandingPage extends Component{
         icon: "cogs" 
       },{ 
         name: "About",
+        to: "/about",
         icon: "question circle outline", 
-        position: "right", 
-        onClick: () => this.setState( {isShown: true} ) 
+        position: "right"
       }
     ]
     return(
