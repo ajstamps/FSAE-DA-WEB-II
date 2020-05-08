@@ -2,7 +2,9 @@
     width: 150px;
     height: 150px;
 }
-.Menu{
-    width: 100vw;
+.maxv{
     height: 100vh;
+}
+.maxpv{
+    height: 100%;
 }

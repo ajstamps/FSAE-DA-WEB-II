@@ -1,6 +1,6 @@
-import React, {Component, Suspense} from "react";
+import React, {Component, useState} from "react";
 import "semantic-ui-css/semantic.min.css";
-import { Header, Button, Icon, Menu, Placeholder, Image, Grid, Dropdown } from "semantic-ui-react";
+import { Header, Button, Icon, Menu, Placeholder, Image, Grid, Dropdown, Segment } from "semantic-ui-react";
 import { Pane, Dialog, Tooltip } from "evergreen-ui";
 import ReactDOM from 'react-dom';
 import "./LandingPage.css";
@@ -8,207 +8,76 @@ import FsaeIcon from "../assets/icon.png";
 import Homepage from "./Homepage";
 import AerodynamicsPage from "./AerodynamicsPage";
 import ElectricalPage from "./ElectricalPage";
-import VehicleDynamicsPage from "./VehicleDynamicsPage";
+import FramePage from "./FramePage";
 import ControlsPage from "./ControlsPage";
 import EnginePage from "./EnginePage";
 import ErrorPage from "./ErrorPage";
 import AboutPage from "./AboutPage";
+import ViewerPage from "./ViewerPage";
 import { useCookies } from 'react-cookie';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-export default class LandingPage extends Component{
-  state = {
-    activeItem: 'Homepage',
-    activeGraphItem: ["RPM"],
-    isShown: false
-  };
-  render(){
-    return (
-      <div>
-        <Grid stackable padded stretched>
-          <Grid.Column width="16">
-            {this.DisplayedPage()}
-          </Grid.Column>
-        </Grid>
-      </div>
+export default function LandingPage(){
+
+    // State infomration. Any changes to state will result in a page refresh.
+    const [activeItem, setActiveItem] = useState('Homepage');
+    const [activeGraphItem, setActiveGraphItem] = useState(["RPM"]);
+    const [isShown, setIsShown] = useState(false);
+
+    // Menu header above the page elements.
+    const GeneratedMenu = () => (
+        <Menu stackable fluid compact>
+            <Menu.Item as={Link} to="/home" >
+                <img src={FsaeIcon}/>
+            </Menu.Item>
+            <Menu.Item as={Link} name="Aerodynamics" icon="plane"                   to="/aerodynamics" />
+            <Menu.Item as={Link} name="Electrical"   icon="plug"                    to="/electrical" />
+            <Menu.Item as={Link} name="Frame"        icon="truck"                   to="/frame" />
+            <Menu.Item as={Link} name="Engine"       icon="tachometer alternate"    to="/engine" />
+            <Menu.Item as={Link} name="Controls"     icon="cogs"                    to="/controls" />
+            <Menu.Item as={Link} name="Viewer"       icon="box"                     to="/viewer" />
+            <Menu.Item as={Link} name="About"        icon="question circle outline" to="/about" position="right"/>
+        </Menu>
     );
-  }
-  SideBar(){
-    const { activeGraphItem } = this.state;
-    return(
-      <Menu vertical fluid>
-        <Menu.Item
-          name='RPM'
-          active={activeGraphItem.some(x => x === 'RPM')}
-          onClick={this.handleGraphItemClick}
-        >
-        </Menu.Item>
 
-        <Menu.Item
-          name='Temp 1'
-          active={activeGraphItem.some(x => x === 'Temp 1')}
-          onClick={this.handleGraphItemClick}
-        >
-
-        </Menu.Item>
-
-        <Menu.Item
-          name='Temp 2'
-          active={activeGraphItem.some(x => x === 'Temp 2')}
-          onClick={this.handleGraphItemClick}
-        >
-        </Menu.Item>
-        <Dropdown item text='Categories'>
-          <Dropdown.Menu>
-            <Dropdown.Item>Electronics</Dropdown.Item>
-            <Dropdown.Item>Automotive</Dropdown.Item>
-            <Dropdown.Item>Home</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </Menu>
-    );
-  }
-  // AboutDialog(){
-  //     return (
-  //       <Dialog
-  //           isShown={this.state.isShown}
-  //           onCloseComplete={() => this.setState({ isShown: false })}
-  //           hasFooter={false}
-  //           hasHeader={false}
-  //           >
-  //           <Image centered src={FsaeIcon}/>
-  //           <Header textAlign="center" size="huge">FSAE Data Acquisition Software</Header>
-  //           <Header textAlign="center" size="small">Last updated Thursday, Feburary 27, 2020</Header>
-
-  //       </Dialog>
-  //     );
-  // }
-  DisplayedPage(){
-    return (
-      <Router>
-        {this.Menu()}
+    // Determines what component is displayed for each link that the user has access to. The switch will select from the first element matched from the top. The errorpage is the default case.
+    const DisplayedPage = () => (
         <Switch>
-          <Route exact path="/"                 component={Homepage} />
-          <Route exact path="/home"             component={Homepage} />
-          <Route exact path="/controls"         component={ControlsPage} />
-          <Route exact path="/aerodynamics"     component={AerodynamicsPage} />
-          <Route exact path="/electrical"       component={ElectricalPage} />
-          <Route exact path="/engine"           component={EnginePage} />
-          <Route exact path="/vehicle dynamics" component={VehicleDynamicsPage} />
-          <Route exact path="/controls"         component={ControlsPage} />
-          <Route exact path="/about"            component={AboutPage} />
-          <Route component={ErrorPage} />
+            <Route exact path="/"             component={AboutPage} />
+            <Route exact path="/home"         component={AboutPage} />
+            <Route exact path="/controls"     component={ControlsPage} />
+            <Route exact path="/aerodynamics" component={AerodynamicsPage} />
+            <Route exact path="/electrical"   component={ElectricalPage} />
+            <Route exact path="/engine"       component={EnginePage} />
+            <Route exact path="/frame"        component={FramePage} />
+            <Route exact path="/controls"     component={ControlsPage} />
+            <Route exact path="/viewer"       component={ViewerPage} />
+            <Route exact path="/about"        component={AboutPage} />
+            <Route component={ErrorPage} />
         </Switch>
-      </Router>
     );
-  }
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-  handleGraphItemClick = (e, { name }) => {
-    const {activeGraphItem} = this.state;
-    if(activeGraphItem.some( x => x == name )) this.setState({ activeGraphItem: activeGraphItem.filter( x => x != name ) });
-    else this.setState({ activeGraphItem: [name, ...activeGraphItem] });
-  };
-  Menu(){
-    const {activeItem} = this.state;
-    const homeLink = { name: "Homepage", to: "/" };
-    const menuItems = [
-      { 
-        name: "Home",
-        to:   "/",
-        children: <img src={FsaeIcon}/>
-      },{ 
-        name: "Aerodynamics",
-        to:   "/aerodynamics",
-        icon: "plane"
-      },{ 
-        name: "Electrical",
-        to: "/electrical",
-        icon: "plug" 
-      },{
-        name: "Vehicle Dynamics", 
-        to: "/vehicle dynamics",  
-        icon: "truck" 
-      },{ 
-        name: "Engine",
-        to: "/engine",
-        icon: "tachometer alternate" 
-      },{ 
-        name: "Controls",
-        to: "/controls",
-        icon: "cogs" 
-      },{ 
-        name: "About",
-        to: "/about",
-        icon: "question circle outline", 
-        position: "right"
-      }
-    ]
+    
+    //Main render function
     return(
-      <Menu stackable>
-        { menuItems.map( x => <Menu.Item as={Link} {...x}/> ) }
-      </Menu>
+        <div className={"maxv"}>
+            <Router>
+                <Grid padded stackable>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <GeneratedMenu/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                <Grid padded stackable style={{ height: "100%" }}>
+
+                    <Grid.Row>
+                        <Grid.Column>
+                            <DisplayedPage/>
+                        </Grid.Column>
+                    </Grid.Row>
+
+                </Grid>
+            </Router>
+        </div>
     );
-  }
 }
-
-//aero, electrical, vehicle dynamics, engine, controls
-
-
-// const LandingPage = () => (
-//   <Grid verticalAlign='middle' columns={5}>
-//     {
-//       Selection.map( function(Item, Index){
-//         return SelectionItem(Item);
-//       } )
-//     }
-//   </Grid>
-// );
-// export default class TeamMenu extends Component {
-//   state = { activeItem: Selection[0] }
-
-//   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-//   SelectionItem( Item ){
-//     return (
-//       <Segment>
-//         <Placeholder>
-//           <Placeholder.Header/>
-//         </Placeholder>
-//         <Card.Content>
-//           <Placeholder>
-//             <Placeholder.Line />
-//             <Placeholder.Line />
-//             <Placeholder.Line />
-//             <Placeholder.Line />
-//             <Placeholder.Line />
-//           </Placeholder>
-//         </Card.Content>
-//       </Segment>
-//     )
-//   }
-
-//   render() {
-//     const { activeItem } = this.state;
-//     const MenuItems = Selection.map( Item => this.SelectionItem(Item) );
-//     const Fallback = () => (
-//       <Card>
-//         <Placeholder>
-//           <Placeholder.Image square/>
-//         </Placeholder>
-//         <Card.Content>
-//           <Placeholder>
-//             <Placeholder.Line />
-//             <Placeholder.Line />
-//             <Placeholder.Line />
-//             <Placeholder.Line />
-//             <Placeholder.Line />
-//           </Placeholder>
-//         </Card.Content>
-//       </Card>
-//     );
-
-//     return (
-//       <div>{MenuItems}</div>
-//     )
-//   }
-// }
