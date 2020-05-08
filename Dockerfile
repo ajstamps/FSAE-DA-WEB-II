@@ -1,4 +1,4 @@
-FROM node:stretch-slim
+FROM node:14.2.0-stretch
 
 COPY . ./FSAE-DA-WEB
 
