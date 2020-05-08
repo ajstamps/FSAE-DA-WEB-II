@@ -1,10 +1,12 @@
-import React, {Component, useState} from "react";
+import React, {useState} from "react";
 import "semantic-ui-css/semantic.min.css";
-import { Header, Button, Icon, Menu, Placeholder, Image, Grid, Dropdown, Segment } from "semantic-ui-react";
-import { Pane, Dialog, Tooltip } from "evergreen-ui";
+import { Menu, Grid } from "semantic-ui-react";
 import ReactDOM from 'react-dom';
+
 import "./LandingPage.css";
+
 import FsaeIcon from "../assets/icon.png";
+
 import Homepage from "./Homepage";
 import AerodynamicsPage from "./AerodynamicsPage";
 import ElectricalPage from "./ElectricalPage";
