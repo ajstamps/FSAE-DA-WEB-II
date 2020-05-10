@@ -1,21 +1,10 @@
-
 import React,{useState, useEffect} from 'react';
-import StyledLineGraph from "../components/StyledLineGraph";
+import StyledLineGraph from "./../components/StyledLineGraph";
 import { Button, Icon, Header, Dropdown, Menu, Grid, Sidebar, Segment } from 'semantic-ui-react';
-import StyledDygraph from './StyledDygraph';
 
-// import ChannelPicker from '../components/ChannelPicker';
+// https://1md185v9lg.execute-api.us-east-2.amazonaws.com/dev/cars/1/channels
 
-
-export default function ViewerPage(){
-
-    const [columns, setColumns] = useState( [] );
-    const [binding, setBinding] = useState( [] );
-    // const [channels, setChannels] = useState( undefined );
-    const [channelLoading, setChannelLoading] = useState( false );
-    const [dataLoading, setDataLoading] = useState( false );
-    const [selectedItem, setSelectedItem] = useState( false );
-    const [channelList, setChannelList] = useState( undefined );
+export default function TestPicker(){
 
     const TestSrc = "https://1md185v9lg.execute-api.us-east-2.amazonaws.com/dev/cars/1/tests/";
     const ChannelSrc = "https://1md185v9lg.execute-api.us-east-2.amazonaws.com/dev/cars/1/channels";
@@ -25,7 +14,7 @@ export default function ViewerPage(){
 
     const [selectedTest, setSelectedTest] = useState( false );
     const [selectedRun, setSelectedRun] = useState( false );
-    const [selectedChannel, setSelectedChannel] = useState( false );
+    const [selectecChannel, setSelectedChannel] = useState( false );
 
     const [testsLoading, setTestsLoading] = useState( false );
     const [runsLoading, setRunsLoading] = useState( false );
@@ -80,41 +69,8 @@ export default function ViewerPage(){
 
     }
 
-    async function LoadData(e,d) {
-        const dataSrc = `https://1md185v9lg.execute-api.us-east-2.amazonaws.com/dev/cars/1/tests/${selectedTest}/${selectedRun}?channel=${selectedChannel}`;
-        
-        setDataLoading(true);
-
-        try{
-            const raw    = await fetch( dataSrc );
-            const json   = await raw.json();
-            const header = await json.body.channel;
-            const time   = await json.body.time;
-            const data   = await json.body.data;
-
-            setColumns( [
-                [ await header, ...(await data) ],
-                [ "time", ...(await time) ]
-            ] );
-            setBinding( {
-                [await header]: "time"
-            } );
-
-        }catch( e ){
-            console.log(`Fetch error: ${e}`);
-        }
-
-        setDataLoading(false);
-
-    }
-    
-    return (
-        <div>
-            <Header as="h1" style={{marginLeft:17+"em"}}>
-                <Icon name="plane"/>
-                Aerodynamics Page
-            </Header>
-            <Menu borderless vertical stackable fixed='left' className='side-nav'>
+    return(
+        <Segment>
             <Menu.Item>
                 <Dropdown
                     placeholder="Select a test"
@@ -157,23 +113,6 @@ export default function ViewerPage(){
                     // fluid
                 />
             </Menu.Item>
-            <Menu.Item color="red" onClick={LoadData}>
-                    Fetch Data
-            </Menu.Item>
-            </Menu>
-            <Grid stretched style={{marginLeft:17+"em"}}>
-                <Grid.Row>
-                    <Grid.Column>
-                        <StyledLineGraph 
-                            loading={dataLoading}
-                            data={columns}
-                            bind={binding}
-                            points={true}
-                            subchart
-                        />
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-        </div>
+        </Segment>
     );
 }

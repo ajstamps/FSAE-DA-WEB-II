@@ -62,6 +62,7 @@ export default function LandingPage(){
     //Main render function
     return(
         <div className={"maxv"}>
+
             <Router>
                 <Grid padded stackable>
                     <Grid.Row>
@@ -71,13 +72,11 @@ export default function LandingPage(){
                     </Grid.Row>
                 </Grid>
                 <Grid padded stackable style={{ height: "100%" }}>
-
                     <Grid.Row>
                         <Grid.Column>
                             <DisplayedPage/>
                         </Grid.Column>
                     </Grid.Row>
-
                 </Grid>
             </Router>
         </div>
