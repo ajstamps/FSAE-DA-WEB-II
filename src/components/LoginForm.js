@@ -6,7 +6,6 @@ const Fields = {
     HeaderText: "Login",
     SuccessMsg: "Login Succsessful!",
     BadLoginMsg: "Bad username or password!",
-    SuccessMsg: "Login Succsessful!",
     UnkMsg: "An unexpected error has occurred.",
     MaxWidth: 450
 };

@@ -1,13 +1,11 @@
-import React, {useState} from "react";
+import React from "react";
 import "semantic-ui-css/semantic.min.css";
 import { Menu, Grid } from "semantic-ui-react";
-import ReactDOM from 'react-dom';
 
 import "./LandingPage.css";
 
 import FsaeIcon from "../assets/icon.png";
 
-import Homepage from "./Homepage";
 import AerodynamicsPage from "./AerodynamicsPage";
 import ElectricalPage from "./ElectricalPage";
 import FramePage from "./FramePage";
@@ -21,16 +19,11 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function LandingPage(){
 
-    // State infomration. Any changes to state will result in a page refresh.
-    const [activeItem, setActiveItem] = useState('Homepage');
-    const [activeGraphItem, setActiveGraphItem] = useState(["RPM"]);
-    const [isShown, setIsShown] = useState(false);
-
     // Menu header above the page elements.
     const GeneratedMenu = () => (
         <Menu stackable fluid compact>
             <Menu.Item as={Link} to="/home" >
-                <img src={FsaeIcon}/>
+                <img src={FsaeIcon} alt="FSAE Icon"/>
             </Menu.Item>
             <Menu.Item as={Link} name="Aerodynamics" icon="plane"                   to="/aerodynamics" />
             <Menu.Item as={Link} name="Electrical"   icon="plug"                    to="/electrical" />

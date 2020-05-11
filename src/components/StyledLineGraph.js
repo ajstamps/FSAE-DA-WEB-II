@@ -1,11 +1,8 @@
-import React, { Component, Suspense } from 'react';
-import { withRouter } from "react-router-dom"
+import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { Grid, Segment, Button, Loader, Dimmer } from 'semantic-ui-react';
+import { Segment, Loader, Dimmer } from 'semantic-ui-react';
 import C3 from 'c3';
 import 'c3/c3.css';
-import AppConfig from "../Config.json"
-import { Spinner } from 'evergreen-ui';
 
 export default class StyledLineGraph extends Component{
     static propTypes = {
@@ -64,7 +61,7 @@ export default class StyledLineGraph extends Component{
             bindto: this.node,
             data:{
                 columns: this.props.data,
-                xs: this.props.bind
+                x: "time"
             },
             point: { 
                 show: this.props.points 
@@ -112,37 +109,3 @@ export default class StyledLineGraph extends Component{
         ); 
     }
 }
- 
-
-
-
-
-
-// config: {
-//     point:    { show: this.props.points },
-//     subchart: { show: this.props.subchart },
-//     tooltip:  { grouped: true },
-//     legend:   { 
-//         show: false,
-//         position: 'right'
-//     },
-//     grid:{
-//         x: { show: true },
-//         y: { show: true }
-//     },
-//     zoom:{
-//         enabled: true,
-//         type: "scroll"
-//     },
-//     axis:{
-//         x: {
-//             show: false,
-//             tick: {
-//                 fit: false,
-//                 rotate: 90
-//             }
-//         }
-//     }
-// }
-// }
-// }

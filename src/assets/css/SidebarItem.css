@@ -1,0 +1,8 @@
+.sidebar-item {
+    background: #f5f5f5;
+}
+
+.sidebar-item-alignment-container {
+    display: flex;
+    align-items: center;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import CarImg from "../assets/b.jpg";
-import { Segment, Icon, Container, Header, Image, Loader, Card, Divider, Grid } from 'semantic-ui-react';
+import { Icon, Container, Header, Image, Card, Divider, Grid } from 'semantic-ui-react';
 
 export default function AboutPage(){
     const items = [
@@ -58,7 +58,7 @@ export default function AboutPage(){
             <Grid stackable celled="internally">
                 <Grid.Row>
                     <Grid.Column width="4" verticalAlign="middle">
-                        <Image size="huge" size="large" bordered centered rounded src={CarImg}/>
+                        <Image size="huge" bordered centered rounded src={CarImg}/>
                     </Grid.Column>
                     <Grid.Column width="12">
                         <Header size="huge" textAlign="left">About Us</Header>

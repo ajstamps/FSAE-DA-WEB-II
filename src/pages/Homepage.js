@@ -1,9 +1,6 @@
 import React, {Component, Suspense} from "react";
 import "semantic-ui-css/semantic.min.css";
 import { Placeholder, Card, Segment, Grid, Image } from "semantic-ui-react";
-import { Pane, Text, Dialog } from "evergreen-ui";
-import ReactDOM from 'react-dom';
-import FsaeIcon from "../assets/icon.png";
 import Gorilla from "../assets/Gorilla.jpg";
 
 // const Gorilla = React.lazy( () => import("../assets/Gorilla.jpg") );
