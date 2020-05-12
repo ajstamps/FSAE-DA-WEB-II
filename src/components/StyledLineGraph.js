@@ -80,25 +80,20 @@ export default class StyledLineGraph extends Component{
         } );
     }
     componentDidMount = async () => {
-        console.log("componentDidMount");
         await this.asyncGenerateChart();
         if(this.chart !== undefined) this.asyncReloadProps();
     }
     componentDidUpdate = async (prevProps, prevState, snapshot) => {
-        console.log("componentDidUpdate");
         if(prevProps.bind !== this.props.bind){
-            console.log("bind update");
             await this.asyncGenerateChart();
         }else{
             if(this.chart !== undefined) await this.asyncReloadProps();
         }
     }
     componentWillUnmount = async () => {
-        console.log("componentWillUnount");
         if(this.chart !== undefined) this.chart = await this.chart.destroy();
     }
     render(){
-        console.log("render");
         return(
             <Segment size="massive">
                 <Dimmer active={this.props.loading}>

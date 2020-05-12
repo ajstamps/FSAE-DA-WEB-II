@@ -4,7 +4,7 @@ import DataVisualizer from '../components/VehicleDataUtils/Visualizer/DataVisual
 export default function ViewerPage(){
     return (
         <div>
-            <DataVisualizer title={"Electrical"} icon={"lightning"}/>
+            <DataVisualizer title={"Engine"} icon={"tachometer alternate"}/>
         </div>
     );
 }
