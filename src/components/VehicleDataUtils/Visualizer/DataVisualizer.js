@@ -5,8 +5,14 @@ import GetRuns from "../VehicleRunUtils/getRuns";
 import GetChannels from "../VehicleChannelUtils/getChannels";
 import '../../../assets/css/Sidebar.css';
 import DataGrid from "../DataGrid/DataGrid";
+import PropTypes from 'prop-types';
 
 export default class DataVisualizer extends Menu {
+    static propTypes = {
+        title: PropTypes.string,
+        icon: PropTypes.string
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -29,9 +35,9 @@ export default class DataVisualizer extends Menu {
     }
 
     handleChannelSelection(channel) {
-        var array = [...this.state.selectedChannels];
+        let array = [...this.state.selectedChannels];
         if (array.includes(channel)) {
-            var index = array.indexOf(channel);
+            const index = array.indexOf(channel);
             array.splice(index, 1);
             this.setState({selectedChannels: array});
         } else {

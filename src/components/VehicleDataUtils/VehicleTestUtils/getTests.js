@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {Test} from "./Test";
 
 class GetTests extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             testSrc: "https://1md185v9lg.execute-api.us-east-2.amazonaws.com/dev/cars/1/tests/",
@@ -17,15 +17,17 @@ class GetTests extends Component {
             testsLoading: true
         });
 
-        try{
-            const data = await fetch( this.state.testSrc );
+        try {
+            const data = await fetch(this.state.testSrc);
             const json = await data.json();
 
             this.setState({
-                tests: await json.body.dates.map( x => { return { key: x, value: x, text: x } } )
+                tests: await json.body.dates.map(x => {
+                    return {key: x, value: x, text: x}
+                })
             });
 
-        } catch(e) {
+        } catch (e) {
             console.log(`Fetch error: ${e}`);
         }
 
@@ -34,9 +36,8 @@ class GetTests extends Component {
         });
     };
 
-    render()
-    {
-        if ( this.state.testsLoading ) {
+    render() {
+        if (this.state.testsLoading) {
             return <div>Loading Tests</div>;
         }
         return (
@@ -44,7 +45,7 @@ class GetTests extends Component {
                                                   value={test.value}
                                                   text={test.text}
                                                   active={this.props.selectedTest === test.text}
-                                                  onClick={(e) => this.props.callWhenClick(e)}/>) )
+                                                  onClick={(e) => this.props.callWhenClick(e)}/>))
         );
     }
 

@@ -7,10 +7,12 @@ import 'c3/c3.css';
 export default class StyledLineGraph extends Component{
     static propTypes = {
         data: PropTypes.arrayOf(PropTypes.array).isRequired,
-        bind: PropTypes.objectOf(PropTypes.string).isRequired,
+        bind: (PropTypes.string).isRequired,
         subchart: PropTypes.bool,
         point: PropTypes.bool,
-        loading: PropTypes.bool
+        loading: PropTypes.bool,
+        title: PropTypes.string,
+        color: PropTypes.string
     }
     static defaultProps = {
         data: [],
@@ -44,9 +46,14 @@ export default class StyledLineGraph extends Component{
                 tick: {
                     fit: false,
                     rotate: 90
-                }
+                },
+                label: "time"
             }
+        },
+        title: {
+            text: this.props.title
         }
+
     };
 
     constructor(props){
@@ -61,7 +68,10 @@ export default class StyledLineGraph extends Component{
             bindto: this.node,
             data:{
                 columns: this.props.data,
-                x: "time"
+                x: "time",
+                colors: {
+                    [this.props.bind]: this.props.color
+                }
             },
             point: { 
                 show: this.props.points 
@@ -69,14 +79,19 @@ export default class StyledLineGraph extends Component{
             subchart: { 
                 show: this.props.subchart 
             },
+
             ...this.config
         } );
         this.setState({loaded: true});
     }
     asyncReloadProps = async () => {
+        console.log(this.props.color);
         await this.chart.load( {
             columns: this.props.data,
-            unload: true
+            unload: true,
+            colors: {
+                [this.props.bind]: this.props.color
+            }
         } );
     }
     componentDidMount = async () => {
@@ -90,9 +105,7 @@ export default class StyledLineGraph extends Component{
             if(this.chart !== undefined) await this.asyncReloadProps();
         }
     }
-    componentWillUnmount = async () => {
-        if(this.chart !== undefined) this.chart = await this.chart.destroy();
-    }
+
     render(){
         return(
             <Segment size="massive">
