@@ -14,7 +14,7 @@ export default function AboutPage(){
             header: "Electrical",
             description: "The best electrical system, is one that you don't even realize is working.",
             meta: "",
-            icon: "truck" 
+            icon: "lightning"
         },
         {
             header: "Engine",

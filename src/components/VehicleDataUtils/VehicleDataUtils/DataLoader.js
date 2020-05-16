@@ -19,7 +19,8 @@ class DataLoader extends Component {
             dataLoading: false,
             header: "",
             color: '#ff0011',
-            displayColorPicker: false
+            displayColorPicker: false,
+            updateGraphs: false
         }
     }
 
@@ -55,15 +56,16 @@ class DataLoader extends Component {
     }
 
     handleChange = (color) => {
-        this.setState({ color: color.hex })
+        this.setState({ color: color.hex });
+        this.handleClose();
     };
 
     handleClick = () => {
-        this.setState({ displayColorPicker: !this.state.displayColorPicker })
+        this.setState({ displayColorPicker: !this.state.displayColorPicker });
     };
 
     handleClose = () => {
-        this.setState({ displayColorPicker: false })
+        this.setState({ displayColorPicker: false });
     };
 
     render() {
@@ -118,6 +120,7 @@ class DataLoader extends Component {
                     points={true}
                     title={this.state.header}
                     color={this.state.color}
+                    update={this.state.updateGraphs}
                     subchart
                 />
             </div>

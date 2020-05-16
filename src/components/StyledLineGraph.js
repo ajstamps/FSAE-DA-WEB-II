@@ -12,7 +12,8 @@ export default class StyledLineGraph extends Component{
         point: PropTypes.bool,
         loading: PropTypes.bool,
         title: PropTypes.string,
-        color: PropTypes.string
+        color: PropTypes.string,
+        update: PropTypes.bool
     }
     static defaultProps = {
         data: [],
@@ -85,7 +86,6 @@ export default class StyledLineGraph extends Component{
         this.setState({loaded: true});
     }
     asyncReloadProps = async () => {
-        console.log(this.props.color);
         await this.chart.load( {
             columns: this.props.data,
             unload: true,
@@ -99,11 +99,11 @@ export default class StyledLineGraph extends Component{
         if(this.chart !== undefined) this.asyncReloadProps();
     }
     componentDidUpdate = async (prevProps, prevState, snapshot) => {
-        if(prevProps.bind !== this.props.bind){
+        if(prevProps.bind !== this.props.bind)
             await this.asyncGenerateChart();
-        }else{
-            if(this.chart !== undefined) await this.asyncReloadProps();
-        }
+        else
+            if(this.chart !== undefined)
+                await this.asyncReloadProps();
     }
 
     render(){

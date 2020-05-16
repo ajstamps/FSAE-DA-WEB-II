@@ -25,10 +25,7 @@ export default class DataGrid extends React.PureComponent {
         }
         return (
             <div style={{paddingLeft:"272px"}}>
-                <ReactGridLayout
-                    {...this.props}
-                    margin={[10, 101]}
-                >
+                <ReactGridLayout{...this.props} margin={[10, 101]}>
                     {this.props.channels.map((channel) => {
                             return (
                                     <div id={channel} key={channel}
@@ -37,11 +34,10 @@ export default class DataGrid extends React.PureComponent {
                                                  y: 0,
                                                  w: 4,
                                                  h: 2,
-                                                 minW: 5,
-                                                 maxW: 20,
+                                                 minW: 3,
+                                                 maxW: 15,
                                                  minH: 1,
-                                                 maxH: 5,
-                                                 isResizable: false}}>
+                                                 maxH: 5}}>
                                         <DataLoader test={this.props.test} run={this.props.run} channel={channel}/>
                                     </div>)})}
                 </ReactGridLayout>

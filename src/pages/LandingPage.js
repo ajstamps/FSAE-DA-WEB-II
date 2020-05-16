@@ -26,7 +26,7 @@ export default function LandingPage(){
                 <img src={FsaeIcon} alt="FSAE Icon"/>
             </Menu.Item>
             <Menu.Item as={Link} name="Aerodynamics" icon="plane"                   to="/aerodynamics" />
-            <Menu.Item as={Link} name="Electrical"   icon="plug"                    to="/electrical" />
+            <Menu.Item as={Link} name="Electrical"   icon="lightning"                    to="/electrical" />
             <Menu.Item as={Link} name="Frame"        icon="truck"                   to="/frame" />
             <Menu.Item as={Link} name="Engine"       icon="tachometer alternate"    to="/engine" />
             <Menu.Item as={Link} name="Controls"     icon="cogs"                    to="/controls" />
